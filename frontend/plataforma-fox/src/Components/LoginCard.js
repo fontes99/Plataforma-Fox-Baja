@@ -10,6 +10,6 @@ const LoginCard = () => {
         </div>
     );
 
-}
+};
 
 export default LoginCard;
