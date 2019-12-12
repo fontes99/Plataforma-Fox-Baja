@@ -1,25 +1,25 @@
 import React from 'react';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
-import {BrouseRouter as Router, Switch, Route} from 'react-router-dom';
-import Navbar from './Components/Navbar'
+import './css/App.css'
+
 import Home from './Pages/Home'
+import Navbar from './Components/Navbar'
 import LoginCard from './Components/LoginCard'
 
-const App = () => {
+function App() {
   return(
-    
-    <Router>
-      
-      <div>
-        <Navbar/>
 
+    <Router>
+      <div className='App'>
+        <Navbar />
         <Switch>
-          <Route path='/' exact component={Home}/>
-          <Route path='/login' exact component={LoginCard}/>
+          <Route exact path='/' component={Home}/>
+          <Route exact path='/login' component={LoginCard}/>
         </Switch>
       </div>
-    
     </Router>
-
   );
-}
+};
+
+export default App;
