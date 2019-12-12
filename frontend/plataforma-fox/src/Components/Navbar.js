@@ -1,22 +1,25 @@
 import React from 'react';
+import '../css/App.css'
 
 import {Link} from 'react-router-dom';
 
 
-const Navbar = () =>{
+function Navbar() {
 
 
     return(
         <div className='navbar'>
-            <div className='home'>
-                <Link to='/'>
-                    <p>Home</p>
+            <div>
+                <Link to='/' style={{textDecoration: 'none'}}>
+                    <b className='nav-link'>Home</b>
                 </Link>
             </div>
 
-            <div className='login'>
-                <Link to='/login'>
-                    <p>Entrar</p>
+            <h1 style={{color:'white'}}>Fox-Baja</h1>
+
+            <div>
+                <Link to='/login' style={{textDecoration: 'none'}}>
+                    <p className='nav-link'>Entrar</p>
                 </Link>
             </div>
         </div>

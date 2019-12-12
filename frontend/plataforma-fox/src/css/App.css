@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background: darkgray;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -21,4 +23,35 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.navbar{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: crimson;
+}
+
+.nav-link{
+  color: white;
+  margin: 0px 60px;
+}
+
+.nav-link:hover{
+  color: lightgreen;
+}
+
+.logincard{
+  margin: 100px 100px;
+  padding: 40px;
+  background: lightgray;
+  border-radius: 10px;
+}
+
+.home{
+  margin: 100px 100px;
+  padding: 40px;
+  background: lightgray;
+  border-radius: 10px;
 }

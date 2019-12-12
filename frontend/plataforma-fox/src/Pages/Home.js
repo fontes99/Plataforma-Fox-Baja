@@ -1,9 +1,14 @@
 import React from 'react';
+import '../css/App.css'
 
-const Home = () =>{
+function Home() {
   return(
-    <h1>faala tu</h1>
-  );
+
+    <div className='home'>
+      <h1>faala tu</h1>
+    </div>
+
+    );
 };
 
 export default Home;
