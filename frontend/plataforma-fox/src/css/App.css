@@ -42,16 +42,10 @@
   color: lightgreen;
 }
 
-.logincard{
+.card-template{
   margin: 100px 100px;
   padding: 40px;
   background: lightgray;
   border-radius: 10px;
-}
-
-.home{
-  margin: 100px 100px;
-  padding: 40px;
-  background: lightgray;
-  border-radius: 10px;
+  text-align: left;
 }
