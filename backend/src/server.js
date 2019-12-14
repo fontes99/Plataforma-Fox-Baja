@@ -16,13 +16,13 @@ class App {
     this.server.use(bodyParser.json())
     this.server.use(
       bodyParser.urlencoded({
-        extended: false
+        extended: true
       })
     )
   }
 
   routes() {
-    this.server.use('/routes', Routes);
+    this.server.use('/', Routes);
 
     this.server.use((req, res) => {
       res.status(404).json({ error: 'pagina não encontrada' });
