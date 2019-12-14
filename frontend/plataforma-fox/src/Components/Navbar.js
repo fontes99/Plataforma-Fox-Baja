@@ -88,6 +88,9 @@ function Navbar() {
 
             </div>
 
+
+            {/* =============================================================== FORM ENTRAR ================================================================ */}
+
             <Modal show={showEntrar} onHide={handleCloseEntrar}>
                 <Modal.Header closeButton>
                     <Modal.Title>Entrar</Modal.Title>
@@ -120,6 +123,7 @@ function Navbar() {
             </Modal>
 
 
+            {/* =============================================================== FORM REGISTRO ============================================================ */}
 
 
             <Modal show={showCadastro} onHide={handleCloseCadastro}>
