@@ -24,10 +24,10 @@ function Navbar() {
     const [showCadastro, setShowCadastro] = useState(false);
 
     const handleCloseEntrar = () => setShowEntrar(false);
-    const handleShowEntrar= () => setShowEntrar(true)
+    const handleShowEntrar = () => setShowEntrar(true)
 
     const handleCloseCadastro = () => setShowCadastro(false);
-    const handleShowCadastro= () => setShowCadastro(true)
+    const handleShowCadastro = () => setShowCadastro(true)
     
     function sair(e){
         e.stopPropagation();
@@ -43,8 +43,18 @@ function Navbar() {
     }
 
     const [validated, setValidated] = useState(false);
+    const [verified, setVerified] = useState(true);
 
-    const senha = 'Fox-baja2019'
+    const updateCode = e => {
+        if(e.target.value !== ''){
+            setVerified(false);
+        };
+
+        if(e.target.value === ''){
+            setVerified(true);
+        }
+    };
+
     
     const handleSubmit = event => {
 
@@ -55,39 +65,55 @@ function Navbar() {
             event.stopPropagation();
         }
 
-        if(document.getElementById("senha").value !== senha){
-            alert('Nao foi possivel realizar seu cadastro.\nSenha de acesso incorreta')
+        if(document.getElementById("senha").value === ''){
             event.preventDefault();
             event.stopPropagation();
+            alert('Nao foi possivel realizar seu cadastro.\nDigite o código de acesso')
+        }
+        
+        else{
+            setValidated(true)
         }
 
-        alert('Cadastro realizado com sucesso!\nBem vindo(a) à plataforma!')
-        setValidated(true);
     };
 
     return(
-        <div className='navbar'>
-            <div>
-                <Link to='/' style={{textDecoration: 'none'}}>
-                    <b className='nav-link'>Home</b>
-                </Link>
+        <div>
+            <div className='nav-title'>
+                <h1 style={{color:'white', margin:'0px', padding:'20px'}}>Fox-Baja</h1>
             </div>
 
-            <h1 style={{color:'white'}}>Fox-Baja</h1>
+            <div className='navbar-itens'>
+                
+                <div>
+                    <Link to='/' style={{textDecoration: 'none'}}>
+                        <Button style={{background:'none', border:'none'}}>
+                            <b className='nav-link'>Home</b>
+                        </Button>
+                    </Link>
+                </div>
 
-            <div>
-                { !isLogged ? 
-                <Button onClick={handleShowEntrar} style={{background:'none', border:'none'}}>
-                    <p className='nav-link'>Entrar</p>
-                </Button>
-                :
-                <Button onClick={sair} style={{background:'none', border:'none'}}>
-                    <p className='nav-link'>Sair</p>
-                </Button>
-                }
+                <div>
+                    <Link to='/membros' style={{textDecoration: 'none'}}>
+                        <Button style={{background:'none', border:'none'}}>
+                            <p className='nav-link'>Membros</p>
+                        </Button>
+                    </Link>
+                </div>
 
+                <div>
+                    { !isLogged ? 
+                    <Button onClick={handleShowEntrar} style={{background:'none', border:'none'}}>
+                        <p className='nav-link'>Entrar</p>
+                    </Button>
+                    :
+                    <Button onClick={sair} style={{background:'none', border:'none'}}>
+                        <p className='nav-link'>Sair</p>
+                    </Button>
+                    }
+
+                </div>
             </div>
-
 
             {/* =============================================================== FORM ENTRAR ================================================================ */}
 
@@ -99,6 +125,8 @@ function Navbar() {
                 <Modal.Body>
 
                     <Form>
+
+
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Endereço de Email</Form.Label>
                             <Form.Control size='lg' type="email" placeholder="Entrar com Email" />
@@ -131,17 +159,25 @@ function Navbar() {
                     <Modal.Title>Cadastro</Modal.Title>
                 </Modal.Header>
 
+                <Modal.Header>
+                    <Form.Group md="6" controlId="senha">
+                        <Form.Label>Código de acesso</Form.Label>
+                        <Form.Control type="password" placeholder="Senha" onChange={updateCode}/>
+                    </Form.Group>
+                </Modal.Header>
+
                 <Modal.Body>
 
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                    <Form.Row>
 
+                    <Form.Row>
                         <Form.Group as={Col} md="6" controlId="validationCustom01">
                             <Form.Label>Email</Form.Label>
                             <Form.Control
                                 required
                                 type="email"
                                 placeholder="exemplo@exemplo.com"
+                                disabled={verified}
                             />
                             <Form.Control.Feedback type='invalid'>Escolha um Email valido</Form.Control.Feedback>
                         </Form.Group>
@@ -152,6 +188,7 @@ function Navbar() {
                                 required
                                 type="password"
                                 placeholder="Escolha uma senha"
+                                disabled={verified}
                             />
                             <Form.Control.Feedback type='invalid'>Escolha uma senha valida</Form.Control.Feedback>
                         </Form.Group>
@@ -160,20 +197,21 @@ function Navbar() {
 
                     <Form.Group md="6" controlId="validationCustom03">
                         <Form.Label>Data de entrada</Form.Label>
-                        <Form.Control type="text" placeholder="mm/aaaa" required />
+                        <Form.Control type="text" placeholder="mm/aaaa" required disabled={verified}/>
                     </Form.Group>
                 
 
                     <Form.Group>
                         <Form.Check
                         label="Membro atual"
+                        disabled={verified}
                         />
                     </Form.Group>
 
                     <Form.Row>
-                        <Form.Group as={Col} md='4' controlId="formGridSubsis">
+                        <Form.Group as={Col} md='6' controlId="formGridSubsis">
                             <Form.Label>Subsistema atual</Form.Label>
-                            <Form.Control as="select">
+                            <Form.Control as="select" disabled={verified}>
                                 <option>Suspensão</option>
                                 <option>Freio</option>
                                 <option>Chassi</option>
@@ -188,21 +226,15 @@ function Navbar() {
                             </Form.Control>
                             </Form.Group>
 
-                            <Form.Group as={Col} md='4' controlId="formGridCargo">
+                            <Form.Group as={Col} md='6' controlId="formGridCargo">
                             <Form.Label>Cargo</Form.Label>
-                            <Form.Control as="select">
+                            <Form.Control as="select" disabled={verified}>
                                 <option>Membro</option>
                                 <option>Gerente</option>
                                 <option>Diretor</option>
                                 <option>Capitão</option>
                             </Form.Control>
                         </Form.Group>
-
-                        <Form.Group as={Col} md="4" controlId="senha">
-                            <Form.Label>Senha de acesso</Form.Label>
-                            <Form.Control type="password" placeholder="Senha" />
-                        </Form.Group>
-
                     </Form.Row>
                     
                     <Button type="submit">Cadastrar-se</Button>
