@@ -9,20 +9,24 @@ import '../css/App.css'
 function LoginCard(){
  
     return(
-        <div className='logincard'>
+        <div className='card-template'>
             <Form>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control size='lg' type="email" id='em' placeholder="Entrar com Email" />
+                    <Form.Control size='lg' type="email" placeholder="Entrar com Email" />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Senha</Form.Label>
-                    <Form.Control size='lg' type="password" id='pass' placeholder="Senha" />
+                    <Form.Control size='lg' type="password" placeholder="Senha" />
                 </Form.Group>
 
-                <Button formAction='/' variant="primary" type="submit">
+                <Button formAction='/' variant="primary" type="submit" style={{margin:'20px'}}>
                     Entrar
+                </Button>
+
+                <Button formAction='/cadastro' variant="primary" type="submit" style={{margin:'20px'}}>
+                    Cadastrar-se
                 </Button>
             </Form>
         </div>

@@ -4,7 +4,7 @@ import '../css/App.css'
 function Home() {
   return(
 
-    <div className='home'>
+    <div className='card-template' style={{textAlign:'center'}}>
       <h1>faala tu</h1>
     </div>
 
