@@ -3,10 +3,10 @@ const routes = express.Router()
 var cors = require('cors')
 routes.use(cors())
 
-const ContentController = require('./app/controllers/ContentController');
+const authController = require('./app/controllers/authController');
+const jwtoken = require('./app/middlewares/jwtoken');
 
-routes.post('/startId', ContentController.startId)
-routes.get('/getContents', ContentController.getContents);
-routes.get('/getContentById/', ContentController.getContentById);
+routes.post('/login', authController.login)
+routes.get('/', jwtoken.checkToken, authController.index);
 
 module.exports = routes;
