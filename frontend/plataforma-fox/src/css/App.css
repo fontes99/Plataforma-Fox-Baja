@@ -25,17 +25,21 @@
   to { transform: rotate(360deg); }
 }
 
-.navbar{
+.nav-title{
+  background: crimson;
+}
+
+.navbar-itens{
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  min-height: 10vh;
+  align-content: center;
   background: crimson;
 }
 
 .nav-link{
   color: white;
   margin: 0px 60px;
+  min-height: 6vh;
 }
 
 .nav-link:hover{
