@@ -3,7 +3,6 @@ import '../css/App.css'
 import {useSelector, useDispatch} from 'react-redux'
 
 import {logout} from '../actions'
-// import LoginCard from'../Components/LoginCard'
 
 import {Link} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
@@ -38,20 +37,23 @@ function Navbar() {
     function entrar(e){
         e.stopPropagation();
         e.preventDefault();
+
+        console.log('bater api de entrada')
+        
         disptach(login());
         setShowEntrar(false);
     }
 
     const [validated, setValidated] = useState(false);
-    const [verified, setVerified] = useState(true);
+    const [disabled, setDisabled] = useState(true);
 
     const updateCode = e => {
-        if(e.target.value !== ''){
-            setVerified(false);
+        if(e.target.value !== 'Fox-baja2019'){
+            setDisabled(true);
         };
 
-        if(e.target.value === ''){
-            setVerified(true);
+        if(e.target.value === 'Fox-baja2019'){
+            setDisabled(false);
         }
     };
 
@@ -73,9 +75,19 @@ function Navbar() {
         
         else{
             setValidated(true)
-        }
 
+            if (form.checkValidity() === true){
+                console.log('bater na api cadastro')
+
+            }
+        }
     };
+
+    // const handleEnter = () => {
+    //     console.log(document.getElementById("Email").value)
+    //     console.log(document.getElementById("Password").value)
+    // }
+
 
     return(
         <div>
@@ -125,14 +137,12 @@ function Navbar() {
                 <Modal.Body>
 
                     <Form>
-
-
-                        <Form.Group controlId="formBasicEmail">
+                        <Form.Group controlId="Email">
                             <Form.Label>Endereço de Email</Form.Label>
                             <Form.Control size='lg' type="email" placeholder="Entrar com Email" />
                         </Form.Group>
 
-                        <Form.Group controlId="formBasicPassword">
+                        <Form.Group controlId="Password">
                             <Form.Label>Senha</Form.Label>
                             <Form.Control size='lg' type="password" placeholder="Senha" />
                         </Form.Group>
@@ -154,7 +164,7 @@ function Navbar() {
             {/* =============================================================== FORM REGISTRO ============================================================ */}
 
 
-            <Modal show={showCadastro} onHide={handleCloseCadastro}>
+            <Modal show={showCadastro} onHide={handleCloseCadastro} enforceFocus={false} >
                 <Modal.Header closeButton>
                     <Modal.Title>Cadastro</Modal.Title>
                 </Modal.Header>
@@ -177,7 +187,7 @@ function Navbar() {
                                 required
                                 type="email"
                                 placeholder="exemplo@exemplo.com"
-                                disabled={verified}
+                                disabled={disabled}
                             />
                             <Form.Control.Feedback type='invalid'>Escolha um Email valido</Form.Control.Feedback>
                         </Form.Group>
@@ -188,7 +198,7 @@ function Navbar() {
                                 required
                                 type="password"
                                 placeholder="Escolha uma senha"
-                                disabled={verified}
+                                disabled={disabled}
                             />
                             <Form.Control.Feedback type='invalid'>Escolha uma senha valida</Form.Control.Feedback>
                         </Form.Group>
@@ -197,21 +207,21 @@ function Navbar() {
 
                     <Form.Group md="6" controlId="validationCustom03">
                         <Form.Label>Data de entrada</Form.Label>
-                        <Form.Control type="text" placeholder="mm/aaaa" required disabled={verified}/>
+                        <Form.Control type="text" placeholder="mm/aaaa" required disabled={disabled}/>
                     </Form.Group>
                 
 
                     <Form.Group>
                         <Form.Check
                         label="Membro atual"
-                        disabled={verified}
+                        disabled={disabled}
                         />
                     </Form.Group>
 
                     <Form.Row>
                         <Form.Group as={Col} md='6' controlId="formGridSubsis">
                             <Form.Label>Subsistema atual</Form.Label>
-                            <Form.Control as="select" disabled={verified}>
+                            <Form.Control as="select" disabled={disabled}>
                                 <option>Suspensão</option>
                                 <option>Freio</option>
                                 <option>Chassi</option>
@@ -228,7 +238,7 @@ function Navbar() {
 
                             <Form.Group as={Col} md='6' controlId="formGridCargo">
                             <Form.Label>Cargo</Form.Label>
-                            <Form.Control as="select" disabled={verified}>
+                            <Form.Control as="select" disabled={disabled}>
                                 <option>Membro</option>
                                 <option>Gerente</option>
                                 <option>Diretor</option>
