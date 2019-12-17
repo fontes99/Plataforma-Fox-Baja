@@ -13,15 +13,15 @@ import Membros from './Pages/Membros';
 function App() {
   return(
 
-    <Router>
-      <div className='App'>
-        <Navbar />
-        <Switch>
-          <Route exact path='/' component={Home}/>
-          <Route exact path='/membros' component={Membros}/>
-        </Switch>
-      </div>
-    </Router>
+    <div className='App'>
+      <Router>
+          <Navbar />
+          <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route exact path='/membros' component={Membros}/>
+          </Switch>
+      </Router>
+    </div>
   );
 };
 

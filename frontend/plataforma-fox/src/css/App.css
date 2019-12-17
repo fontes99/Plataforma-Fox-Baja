@@ -1,7 +1,10 @@
+
 .App {
   text-align: center;
   background: darkgray;
   min-height: 100vh;
+  height: fit-content;
+  padding: 0px 0px 10px 0px;
 }
 
 .App-logo {
@@ -20,20 +23,15 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 .nav-title{
-  background: crimson;
+  background: #CB0A2B;
 }
 
 .navbar-itens{
   display: flex;
   justify-content: space-around;
   align-content: center;
-  background: crimson;
+  background: #CB0A2B;
 }
 
 .nav-link{
@@ -52,4 +50,18 @@
   background: lightgray;
   border-radius: 10px;
   text-align: left;
+}
+
+.membros-card{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 30px;
+}
+
+.card{
+  margin: 22px;
+}
+
+.card-title{
+  font-size: 4rem;
 }

@@ -83,12 +83,6 @@ function Navbar() {
         }
     };
 
-    // const handleEnter = () => {
-    //     console.log(document.getElementById("Email").value)
-    //     console.log(document.getElementById("Password").value)
-    // }
-
-
     return(
         <div>
             <div className='nav-title'>
