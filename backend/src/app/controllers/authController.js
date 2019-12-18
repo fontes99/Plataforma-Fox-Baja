@@ -14,12 +14,12 @@ class authController {
 
     try {
 
-      let username = req.body.username;
+      let email = req.body.email;
       let password = req.body.password;
 
-      if (!(username && password)) return res.status(400).json({ success: false, message: 'Authentication failed! Please check the request' })
+      if (!(email && password)) return res.status(400).json({ success: false, message: 'Authentication failed! Please check the request' })
 
-      var model = await userModel.find({ username: username }).exec();
+      var model = await userModel.find({ email: email }).exec();
 
       if (model.length === 0) return res.status(400).json({ success: false, message: 'Authentication failed! User not found' })
 
