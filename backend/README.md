@@ -6,6 +6,88 @@ Entre na pasta backend no seu computador e execute
 
 # Documentação de rotas
 
+Todos os inputs devem ser seguidos exatamente como exemplificado. Note que os outputs são aqueles esperados caso os dados de entrada sigam o padrão. Caso alguma variável no input seja trocada ou invaidada, uma mensagem de erro parecerá e irá explicar o que causou o erro.
+
+### * validateSecret/
+
+Para validação do segredo que o usuário vai entrar assim que tentar se cadastrar
+
+#### `input:`
+```javascript
+{ "secret": <secret-key> }
+```
+
+#### `output:`
+```javascript
+{
+"success": boolean
+"message": String
+}
+```
+
+### * register/
+
+Para registro do usuário
+
+#### `input:`
+```javascript
+{
+	"username": <username>, 
+	"email": <email>,
+	"password": <password>,
+	"secret": <secret-key>
+}
+```
+
+#### `output:`
+```javascript
+{
+ "success": boolean
+ "message": String
+ "id": String
+}
+```
+### * login/
+
+Para login do usuário
+
+#### `input:`
+```javascript
+{
+	"email": <email>,
+	"password": <password>,
+}
+```
+
+#### `output:`
+```javascript
+{
+ "success": boolean
+ "message": String
+ "token": String
+ "id': String
+}
+```
+
+### * test/
+
+Para teste do token, este dado so dve ser mostrado se o token for válido
+
+#### `input:`
+```javascript
+{
+	"x-access-token": <token>
+}
+```
+
+#### `output:`
+```javascript
+{
+ "success": boolean
+ "message": id
+}
+```
+
 # Estrutura das pastas
 
 * src/
