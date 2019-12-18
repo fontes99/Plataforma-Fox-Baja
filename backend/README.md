@@ -20,8 +20,8 @@ Para validação do segredo que o usuário vai entrar assim que tentar se cadast
 #### `output:`
 ```javascript
 {
-"success": boolean
-"message": String
+ "success": boolean
+ "message": String
 }
 ```
 
@@ -32,10 +32,10 @@ Para registro do usuário
 #### `input:`
 ```javascript
 {
-	"username": <username>, 
-	"email": <email>,
-	"password": <password>,
-	"secret": <secret-key>
+ "username": <username>, 
+ "email": <email>,
+ "password": <password>,
+ "secret": <secret-key>
 }
 ```
 
@@ -54,8 +54,8 @@ Para login do usuário
 #### `input:`
 ```javascript
 {
-	"email": <email>,
-	"password": <password>,
+ "email": <email>,
+ "password": <password>,
 }
 ```
 
@@ -76,7 +76,7 @@ Para teste do token, este dado so dve ser mostrado se o token for válido
 #### `input:`
 ```javascript
 {
-	"x-access-token": <token>
+ "x-access-token": <token>
 }
 ```
 
