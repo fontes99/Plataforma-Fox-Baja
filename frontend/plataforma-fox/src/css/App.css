@@ -55,6 +55,7 @@
 .membros-card{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   margin: 30px;
 }
 

@@ -21,7 +21,7 @@ function Membros() {
   const displayMembros = (membros) =>{
     return(
       membros.map(membro=>(
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '18rem' }} key={membro.id}>
           
           <Card.Img variant="top" src={templateImg} alt='template'/>
 
