@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
-import '../css/App.css'
 import {useSelector, useDispatch} from 'react-redux'
+import axios from 'axios'
+
+import '../css/App.css'
 
 import {logout} from '../actions'
 
 import {Link} from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 
+import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
@@ -26,7 +28,10 @@ function Navbar() {
     const handleShowEntrar = () => setShowEntrar(true)
 
     const handleCloseCadastro = () => setShowCadastro(false);
-    const handleShowCadastro = () => setShowCadastro(true)
+    const handleShowCadastro = () => {
+        handleCloseEntrar()
+        setShowCadastro(true)
+    }
     
     function sair(e){
         e.stopPropagation();
@@ -47,14 +52,18 @@ function Navbar() {
     const [validated, setValidated] = useState(false);
     const [disabled, setDisabled] = useState(true);
 
-    const updateCode = e => {
-        if(e.target.value !== 'Fox-baja2019'){
-            setDisabled(true);
-        };
+    const updateCode = async e => {
+        // if(e.target.value !== 'Fox-baja2019'){
+        //     setDisabled(true);
+        // };
 
-        if(e.target.value === 'Fox-baja2019'){
-            setDisabled(false);
-        }
+        // if(e.target.value === 'Fox-baja2019'){
+        //     setDisabled(false);
+        // }
+
+        const resp = await axios.post(`http://localhost:8000/routes/validateSecret`, {"secret": e.target.value}).then(({output}) => { return output })
+        console.log(resp)
+    
     };
 
     
