@@ -17,14 +17,14 @@ class authController {
       let username = req.body.username;
       let password = req.body.password;
 
-      if (!(username && password)) return res.status(400).json({ success: false, message: 'Authentication failed! Please check the request' })
+      if (!(username) && !(password)) return res.json({ success: false, message: 'Authentication failed! Please check the request' })
 
       var model = await userModel.find({ username: username }).exec();
 
-      if (model.length === 0) return res.status(400).json({ success: false, message: 'Authentication failed! User not found' })
+      if (model.length === 0) return res.json({ success: false, message: 'Authentication failed! User not found' })
 
       const validPwd = await bcrypt.compare(password, model[0].password)
-      if (!validPwd) return res.status(400).json({ success: false, message: 'Authentication failed! Incorrect password' })
+      if (!validPwd) return res.json({ success: false, message: 'Authentication failed! Incorrect password' })
 
       let token = jwt.sign({ _id: model[0]._id }, secretkey, { expiresIn: '2h' });
       return res.json({ success: true, message: 'Authentication successful!', token: token, id: model[0]._id })
@@ -38,7 +38,7 @@ class authController {
 
     const secret = req.body.secret;
 
-    if (!(secret === registersecret)) return res.status(400).json({ success: false, message: "Wrong secret" })
+    if (!(secret === registersecret)) return res.json({ success: false, message: "Wrong secret" })
 
     const data = {
       username: req.body.username,
