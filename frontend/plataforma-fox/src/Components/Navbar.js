@@ -27,7 +27,10 @@ function Navbar() {
     const handleCloseEntrar = () => setShowEntrar(false);
     const handleShowEntrar = () => setShowEntrar(true)
 
-    const handleCloseCadastro = () => setShowCadastro(false);
+    const handleCloseCadastro = () => {
+        setShowCadastro(false);
+        setShowEntrar(true)
+    }
     const handleShowCadastro = () => {
         handleCloseEntrar()
         setShowCadastro(true)
@@ -39,57 +42,56 @@ function Navbar() {
         disptach(logout());
     }
 
-    function entrar(e){
+    const entrar = async e =>{
         e.stopPropagation();
         e.preventDefault();
 
-        console.log('bater api de entrada')
+        const em = document.getElementById("Email").value
+        const pas = document.getElementById("Password").value
+
+        const req = await axios.post(`http://localhost:8000/login`, {"email": em, "password": pas})
+        const result = req.data
+
+        console.log(result)
+        alert(result.message)
         
-        disptach(login());
-        setShowEntrar(false);
+        if (result.success === true){
+            disptach(login());
+            setShowEntrar(false);
+        }
     }
 
     const [validated, setValidated] = useState(false);
     const [disabled, setDisabled] = useState(true);
 
-    const updateCode = async e => {
-        // if(e.target.value !== 'Fox-baja2019'){
-        //     setDisabled(true);
-        // };
+    const updateCode = async e =>{
+        console.log(e.target.value)
 
-        // if(e.target.value === 'Fox-baja2019'){
-        //     setDisabled(false);
-        // }
+        const resp = await axios.post(`http://localhost:8000/validateSecret`, {"secret": e.target.value})
+        const result = resp.data.success
 
-        const resp = await axios.post(`http://localhost:8000/routes/validateSecret`, {"secret": e.target.value}).then(({output}) => { return output })
-        console.log(resp)
+        setDisabled(!result)
     
     };
 
     
     const handleSubmit = event => {
-
         const form = event.currentTarget;
-
         if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
+          event.preventDefault();
+          event.stopPropagation();
+        }
+    
+        if (form.checkValidity() === true){
+
+            
+
+            const resp = await axios.post(`http://localhost:8000/validateSecret`, {"secret": e.target.value})
+            const result = resp.data.success
+            console.log('bater api cadastro')
         }
 
-        if(document.getElementById("senha").value === ''){
-            event.preventDefault();
-            event.stopPropagation();
-            alert('Nao foi possivel realizar seu cadastro.\nDigite o código de acesso')
-        }
-        
-        else{
-            setValidated(true)
-
-            if (form.checkValidity() === true){
-                console.log('bater na api cadastro')
-
-            }
-        }
+        setValidated(true);
     };
 
     return(
@@ -167,7 +169,7 @@ function Navbar() {
             {/* =============================================================== FORM REGISTRO ============================================================ */}
 
 
-            <Modal show={showCadastro} onHide={handleCloseCadastro} enforceFocus={false} >
+            <Modal show={showCadastro} onHide={handleCloseCadastro}>
                 <Modal.Header closeButton>
                     <Modal.Title>Cadastro</Modal.Title>
                 </Modal.Header>
@@ -250,7 +252,7 @@ function Navbar() {
                         </Form.Group>
                     </Form.Row>
                     
-                    <Button type="submit">Cadastrar-se</Button>
+                    <Button type="submit" disabled={disabled}>Cadastrar-se</Button>
 
                 </Form>
 
