@@ -48,13 +48,13 @@ class authController {
 
     const { error } = validateRegister(data)
 
-    if (!(error === undefined)) return res.status(400).json({ success: false, message: error.details[0].message })
+    if (!(error === undefined)) return res.json({ success: false, message: error.details[0].message })
 
     const emailExists = await userModel.findOne({ email: req.body.email })
-    if (emailExists) return res.status(400).json({ success: false, message: 'Register failed! Email already exists' })
+    if (emailExists) return res.json({ success: false, message: 'Register failed! Email already exists' })
 
     const userExists = await userModel.findOne({ username: req.body.username })
-    if (userExists) return res.status(400).json({ success: false, message: 'Register failed! Username already taken' })
+    if (userExists) return res.json({ success: false, message: 'Register failed! Username already taken' })
 
     const salt = await bcrypt.genSalt(10);
     const hashPwd = await bcrypt.hash(req.body.password, salt);
