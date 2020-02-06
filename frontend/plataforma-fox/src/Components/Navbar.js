@@ -1,19 +1,19 @@
 import React, {useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux'
-import axios from 'axios'
+import {useSelector, useDispatch} from 'react-redux';
+import axios from 'axios';
 
-import '../css/App.css'
+import '../css/App.css';
 
-import {logout} from '../actions'
+import {logout} from '../actions';
 
 import {Link} from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal'
-import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
 
-import {login} from '../actions'
+import {login} from '../actions';
 
 function Navbar() {
 
@@ -61,7 +61,6 @@ function Navbar() {
         }
     }
 
-    const [validated, setValidated] = useState(false);
     const [disabled, setDisabled] = useState(true);
 
     const updateCode = async e =>{
@@ -75,23 +74,43 @@ function Navbar() {
     };
 
     
-    const handleSubmit = event => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-    
-        if (form.checkValidity() === true){
+    // const cadastrar = async (usr, em, pass, sec) =>{
+        
+    //     const resp = await axios.post(`http://localhost:8000/register`, {
+    //         "username": usr, 
+    //         "email": em,
+    //         "password": pass,
+    //         "secret": sec
+    //     }).then(({data}) => {return data})
 
+    //     console.log(resp)
+    // }
+
+    const handleCadastro = async event => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const usr = document.getElementById('emailCadastro').value;
+        const em = document.getElementById('emailCadastro').value;
+        const pass = document.getElementById('senhaCadastro').value;
+        const sec = document.getElementById('codCadastro').value;
+
+        const resp = await axios.post(`http://localhost:8000/register`, {
+            "username": usr, 
+            "email": em,
+            "password": pass,
+            "secret": sec
+        }).then(({data}) => {return data})
+
+        console.log(resp)
+        alert(resp.message)
+
+        if (resp.success){
+            disptach(login());
+            setShowEntrar(false);
+            setShowCadastro(false);
+        }
             
-
-            const resp = await axios.post(`http://localhost:8000/validateSecret`, {"secret": e.target.value})
-            const result = resp.data.success
-            console.log('bater api cadastro')
-        }
-
-        setValidated(true);
     };
 
     return(
@@ -175,7 +194,7 @@ function Navbar() {
                 </Modal.Header>
 
                 <Modal.Header>
-                    <Form.Group md="6" controlId="senha">
+                    <Form.Group md="6" controlId="codCadastro">
                         <Form.Label>Código de acesso</Form.Label>
                         <Form.Control type="password" placeholder="Senha" onChange={updateCode}/>
                     </Form.Group>
@@ -183,10 +202,10 @@ function Navbar() {
 
                 <Modal.Body>
 
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form>
 
                     <Form.Row>
-                        <Form.Group as={Col} md="6" controlId="validationCustom01">
+                        <Form.Group as={Col} md="6" controlId="emailCadastro">
                             <Form.Label>Email</Form.Label>
                             <Form.Control
                                 required
@@ -197,7 +216,7 @@ function Navbar() {
                             <Form.Control.Feedback type='invalid'>Escolha um Email valido</Form.Control.Feedback>
                         </Form.Group>
 
-                        <Form.Group as={Col} md="6" controlId="validationCustom02">
+                        <Form.Group as={Col} md="6" controlId="senhaCadastro">
                             <Form.Label>Senha</Form.Label>
                             <Form.Control
                                 required
@@ -210,13 +229,13 @@ function Navbar() {
 
                     </Form.Row>
 
-                    <Form.Group md="6" controlId="validationCustom03">
+                    <Form.Group md="6" controlId="dataCadastro">
                         <Form.Label>Data de entrada</Form.Label>
                         <Form.Control type="text" placeholder="mm/aaaa" required disabled={disabled}/>
                     </Form.Group>
                 
 
-                    <Form.Group>
+                    <Form.Group controlId='membroAtualCadastro'>
                         <Form.Check
                         label="Membro atual"
                         disabled={disabled}
@@ -224,7 +243,7 @@ function Navbar() {
                     </Form.Group>
 
                     <Form.Row>
-                        <Form.Group as={Col} md='6' controlId="formGridSubsis">
+                        <Form.Group as={Col} md='6' controlId="subSisCadastro">
                             <Form.Label>Subsistema atual</Form.Label>
                             <Form.Control as="select" disabled={disabled}>
                                 <option>Suspensão</option>
@@ -241,7 +260,7 @@ function Navbar() {
                             </Form.Control>
                             </Form.Group>
 
-                            <Form.Group as={Col} md='6' controlId="formGridCargo">
+                            <Form.Group as={Col} md='6' controlId="cargoCadastro">
                             <Form.Label>Cargo</Form.Label>
                             <Form.Control as="select" disabled={disabled}>
                                 <option>Membro</option>
@@ -252,7 +271,7 @@ function Navbar() {
                         </Form.Group>
                     </Form.Row>
                     
-                    <Button type="submit" disabled={disabled}>Cadastrar-se</Button>
+                    <Button variant='primary' disabled={disabled} onClick={handleCadastro}>Cadastrar-se</Button>
 
                 </Form>
 
